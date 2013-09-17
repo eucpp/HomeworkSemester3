@@ -10,7 +10,9 @@ public:
     {
         Windows,
         Mac,
-        Linux
+        Linux,
+        // тестовый параметр, вероятность заражения 100%
+        Test
     };
 
     Computer(OS _os = Windows, bool _infected = false);
@@ -23,6 +25,10 @@ public:
       *
       */
     bool isInfected();
+    /**
+      *
+      */
+    void heal();
     /**
       *
       */

@@ -34,12 +34,19 @@ void Computer::infect()
             infected = true;
         }
         break;
+    case Test:
+        infected = true;
     }
 }
 
 bool Computer::isInfected()
 {
     return infected;
+}
+
+void Computer::heal()
+{
+    infected = false;
 }
 
 Computer::OS Computer::getOS()

@@ -2,6 +2,7 @@
 #define NETWORK_H
 
 #include <iostream>
+#include <iostream>
 #include <QVector>
 
 #include "computer.h"
@@ -12,20 +13,20 @@ public:
     /**
       *
       */
-    Network(QVector<Computer> computers);
+    Network(QVector<Computer> _computers);
 
     /**
       *
       */
-    void bind(int first, int second);
+    void bind(int i, int j);
     /**
       *
       */
-    void unbind(int first, int second);
+    void unbind(int i, int j);
     /**
       *
       */
-    bool isBound(int first, int second);
+    bool isBound(int i, int j);
     /**
       *
       */
@@ -35,13 +36,16 @@ public:
       */
     void heal(int id);
     /**
-      *
+      * Печатает матрицу сети, выделяя цветами заражённые и находящиеся в опасности компы.
       */
     void print();
     /**
       *
       */
     bool isInfected(int id);
+private:
+    QVector<Computer> computers;
+    QVector< QVector<bool> > matrix;
 };
 
 #endif // NETWORK_H
