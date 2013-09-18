@@ -99,13 +99,9 @@ private slots:
         class1  << 0 << 2 << 3 << 5;
         QSet<int> class2;
         class2  << 1 << 4;
-        QCOMPARE(actual[0], class1);
-        QCOMPARE(actual[1], class2);
-        QCOMPARE(actual[2], class1);
-        QCOMPARE(actual[3], class1);
-        QCOMPARE(actual[4], class2);
-        QCOMPARE(actual[5], class1);
-
+        QCOMPARE(actual.size(), 2);
+        QCOMPARE(actual.contains(class1), true);
+        QCOMPARE(actual.contains(class2), true);
     }
 };
 

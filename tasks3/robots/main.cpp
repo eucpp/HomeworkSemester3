@@ -1,8 +1,13 @@
 #include <QtCore/QCoreApplication>
 
+#include <iostream>
 #include <QTest>
 
 #include "graphTest.h"
+
+using std::cout;
+using std::endl;
+using std::cin;
 
 /**
   * Задача о роботах.
@@ -32,8 +37,81 @@ int main(int argc, char *argv[])
         {
             GraphTest test1;
             QTest::qExec(&test1);
+            a.quit();
         }
     }
+
+    cout << "Enter number of vertices in graph: " << endl;
+    int v = 0;
+    cin >> v;
+    Graph graph(v);
+    cout << "For each vertex enter the list of binded vertices:" << endl;
+    cin.get();
+    for (int i = 0; i < v; i++)
+    {
+        cout << i << ": ";
+        char ch = cin.get();
+        while (ch != '\n')
+        {
+            if (ch == ' ')
+            {
+                ch = cin.get();
+                continue;
+            }
+            cin.putback(ch);
+            int vertex = 0;
+            cin >> vertex;
+            graph.bind(i, vertex);
+            ch = cin.get();
+        }
+        cout << endl;
+    }
+    QVector<int> robots;
+    cout << "Enter placement of robots: " << endl;
+    char ch = cin.get();
+    while (ch != '\n')
+    {
+        if (ch == ' ')
+        {
+            ch = cin.get();
+            continue;
+        }
+        cin.putback(ch);
+        int robot = 0;
+        cin >> robot;
+        robots.append(robot);
+        ch = cin.get();
+    }
+    cout << endl;
+
+    bool result = true;
+    QVector< QSet<int> > classes = graph.getReachableClasses();
+    for (int i = 0; i < classes.size(); i++)
+    {
+        int robotsInClass = 0;
+        for (int j = 0; j < robots.size(); j++)
+        {
+            if (classes[i].contains(robots[j]))
+            {
+                robotsInClass++;
+            }
+        }
+        if (robotsInClass == 1)
+        {
+            result = false;
+            break;
+        }
+    }
+
+    if (result)
+    {
+        cout << "Robots can be destroyed!" << endl;
+    }
+    else
+    {
+        cout << "Robots can't be destroyed!" << endl;
+    }
+
     
     return a.exec();
 }

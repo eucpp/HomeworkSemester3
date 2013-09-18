@@ -101,4 +101,24 @@ QSet<int> Graph::get2ndReachable(int v)
 
 QVector<QSet<int> > Graph::getReachableClasses()
 {
+    for (int i = 0; i < analyzed.size(); i++)
+    {
+        if (!analyzed[i])
+        {
+            get2ndReachable(i);
+        }
+    }
+
+    QVector< QSet<int> > classes;
+    classes.append(reachableClasses[0]);
+    for (int i = 1; i < reachableClasses.size(); i++)
+    {
+        if (classes.contains(reachableClasses[i]))
+        {
+            continue;
+        }
+        classes.append(reachableClasses[i]);
+    }
+
+    return classes;
 }
